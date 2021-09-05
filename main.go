@@ -15,9 +15,27 @@ func getData() []uint32 {
 }
 
 func radixSort(data *[]uint32) {
-	// out := []uint32{}
-	// tmp := [][]uint32{}
-	// for i := 0;
+	out := []uint32{}
+	tmp := [][]uint32{}
+	for i := 0; i < 256; i++ {
+		tmp = append(tmp, []uint32{})
+	}
+
+	for byte := 0; byte < 4; byte++ {
+		for _, value := range *data {
+			b := (value >> (byte * 8)) & 0xFF
+
+			tmp[b] = append(tmp[b], value)
+		}
+
+		for b, bucket := range tmp {
+			out = append(out, bucket...)
+			tmp[b] = []uint32{}
+		}
+
+		*data = out
+		out = []uint32{}
+	}
 }
 
 func main() {
