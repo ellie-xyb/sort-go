@@ -3,20 +3,29 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"sort"
+	"time"
 )
 
-func getData() []int {
-	data := []int{}
+func getData() []uint32 {
+	data := []uint32{}
 	for i := 0; i < 10000000; i++ {
-		data = append(data, rand.Intn(4294998))
+		data = append(data, rand.Uint32())
 	}
 	return data
+}
+
+func radixSort(data *[]uint32) {
+	// out := []uint32{}
+	// tmp := [][]uint32{}
+	// for i := 0;
 }
 
 func main() {
 	// fmt.Println("hello word")
 	data := getData()
-	sort.Ints(data)
-	fmt.Println(data[0])
+
+	start := time.Now()
+	radixSort(&data)
+	fmt.Println(time.Since(start))
+	fmt.Println(data[0:10])
 }
